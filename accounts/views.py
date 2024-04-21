@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from accounts.utils import detectUser
+from accounts.utils import detectUser, send_verification_email
 from .forms import UserForm
 from .models import User, UserProfile
 from django.contrib import messages, auth
@@ -49,6 +49,8 @@ def registerUser(request):
             user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
             user.role = user.CUSTOMER
             user.save()
+            # Send verification email
+            send_verification_email(request, user)
             messages.success(request, 'Your account has been created sucessfully!')
             return redirect('registerUser')
         else:
@@ -79,6 +81,8 @@ def registerVendor(request):
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
+            # Send verification email
+            send_verification_email(request, user)
             messages.success(request, 'Your account has been created sucessfully! Please wait for the approval.')
             return redirect('registerVendor')
         else:
@@ -92,6 +96,10 @@ def registerVendor(request):
         'v_form': v_form
     }
     return render(request, 'accounts/registerVendor.html', context)
+
+def activate(request, uidb64, token):
+    # Activate the user by settings the is_activate status to True
+    return 
 
 def login(request):
     if request.user.is_authenticated:
