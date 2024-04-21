@@ -51,7 +51,9 @@ def registerUser(request):
             user.role = user.CUSTOMER
             user.save()
             # Send verification email
-            send_verification_email(request, user)
+            mail_subject = 'Please activate your account'
+            email_template = 'accounts/emails/account_verification_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
             messages.success(request, 'Your account has been created sucessfully!')
             return redirect('registerUser')
         else:
@@ -83,7 +85,9 @@ def registerVendor(request):
             vendor.user_profile = user_profile
             vendor.save()
             # Send verification email
-            send_verification_email(request, user)
+            mail_subject = 'Please activate your account'
+            email_template = 'accounts/emails/account_verification_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
             messages.success(request, 'Your account has been created sucessfully! Please wait for the approval.')
             return redirect('registerVendor')
         else:
@@ -157,6 +161,20 @@ def customerDashboard(request):
 
 
 def forgotPassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email__exact=email)
+            # Send reset password email
+            mail_subject = 'Reset your password'
+            email_template = 'accounts/emails/account_password_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
+            messages.success(request, 'Password reset link has been sent to your email address')
+            return redirect('login')
+        else:
+            messages.error(request, 'Account does not exits')
+            return redirect('forgotPassword')
+            
     return render(request, 'accounts/forgotPassword.html')
     
 def resetPasswordValidate(request, uidb64, token):
