@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from accounts.utils import detectUser, send_verification_email
+from vendor.models import Vendor
 from .forms import UserForm
 from .models import User, UserProfile
 from django.contrib import messages, auth
