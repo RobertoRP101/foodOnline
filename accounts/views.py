@@ -153,11 +153,7 @@ def myAccount(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
 def vendorDashboard(request):
-    vendor = Vendor.objects.get(user=request.user)
-    context = {
-        'vendor': vendor,
-    }
-    return render(request, 'accounts/vendorDashboard.html', context)
+    return render(request, 'accounts/vendorDashboard.html')
 
 @login_required(login_url='login')
 @user_passes_test(check_role_customer)
