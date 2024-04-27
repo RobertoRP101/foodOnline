@@ -38,3 +38,9 @@ def vprofile(request):
         'vendor' : vendor,
     }
     return render(request, 'vendor/vprofile.html', context)
+
+
+def menu_builder(request):
+    if request.method == 'POST':
+        pass
+    return render(request, 'vendor/menu_builder.html')
