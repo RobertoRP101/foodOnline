@@ -20,6 +20,8 @@ class Category(models.Model):
         verbose_name = 'category'
         verbose_name_plural = 'categories'
         
+    def clean(self):
+        self.category_name = self.category_name.capitalize()
     
 class FoodItem(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
