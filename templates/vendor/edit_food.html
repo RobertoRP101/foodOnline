@@ -17,10 +17,8 @@
                         <div class="user-holder">
                             <h5 class="text-uppercase" >Build your food menu</h5>
                             <hr>
-                            <button class="btn btn-secondary" onclick="history.back()"> <i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
-                            <br><br>
-                            <h6>Add new categories</h6>
-                            <form action="{% url 'add_category' %}" method="POST">
+                            <h6>Modify categories</h6>
+                            <form action="{% url 'edit_category' category.id %}" method="POST">
                                 {% csrf_token %}
                                 <div class="form-fields-set">
                                     <div class="row">
@@ -45,7 +43,7 @@
                                         {% endfor %}
                                     {% endif %}
                                 {% endfor %}
-                                <button type="submit" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Create</button>
+                                <button type="submit" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Update</button>
 
                             </form>
 									
