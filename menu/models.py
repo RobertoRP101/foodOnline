@@ -9,7 +9,7 @@ class Category(models.Model):
     # URL's category
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(max_length=250, blank=True)
-    crated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
     
@@ -20,6 +20,8 @@ class Category(models.Model):
         verbose_name = 'category'
         verbose_name_plural = 'categories'
         
+    def clean(self):
+        self.category_name = self.category_name.capitalize()
     
 class FoodItem(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
@@ -30,7 +32,7 @@ class FoodItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='foodimages')
     is_available = models.BooleanField(default=True)
-    crated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
