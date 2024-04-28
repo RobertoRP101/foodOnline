@@ -17,17 +17,20 @@
                         <div class="user-holder">
                             <h5 class="text-uppercase" >Build your food menu</h5>
                             <hr>
-                            <h6>Menu categories</h6>
+                            <h6>Category: <span class="text-uppercase text-success">{{category}}</span></h6>
+                           
+                            {% if fooditems %}
                             <a href="#" class="btn btn-success float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add food </a>
                             <a href="#" class="btn btn-info float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add category </a>
                             <table class="table table-hover table-borderless">
                                 <tbody>
-                                    {% for category in categories %}
+                                    {% for fooditem in fooditems %}
                                   <tr>
                                     <td class="text-left">{{forloop.counter}}</td>
+                                    <td class="text-left"><img src="{{fooditem.image.url}}" alt="Food image" width="40"></td>
                                     <td class="text-left">
-                                        <a href="{% url 'fooditems_by_category' category.id %}"><p class="mb-0 font-weight-bold">{{category}}</p>
-                                            <small class="text-muted">{{category.description}}</small>
+                                        <a href=""><p class="mb-0 font-weight-bold">{{fooditem}}</p>
+                                            <small class="text-muted">{{fooditem.description}}</small>
                                         </a>
                                     </td>
                                     <td>
@@ -37,8 +40,14 @@
                                   </tr>
                                   {% endfor %}
                                 </tbody>
-                              </table>
-									
+                            </table>
+                            {% else %}
+                                <h5 class="text-center">No food items found.</h5>
+                                <div class="text-center">
+                                    <a href="" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add food</a>
+                                </div>
+
+                            {% endif %}
                             <!-- <div class="user-message" style="background-color:#1e73be;">
                                 <a class="close" href="#"><i class="icon-cross-out"></i></a>
                                 <h2>Welcome to your Restaurant.</h2>

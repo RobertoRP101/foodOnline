@@ -33,4 +33,5 @@ class FoodItem(models.Model):
     crated_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
-    
+    def __str__(self) -> str:
+        return self.food_title
