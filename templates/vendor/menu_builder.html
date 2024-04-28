@@ -18,16 +18,24 @@
                             <h5 class="text-uppercase" >Build your food menu</h5>
                             <hr>
                             <h6>Menu categories</h6>
-                            <a href="#" class="btn btn-success float-right m-1">Add food </a>
-                            <a href="#" class="btn btn-info float-right m-1">Add category </a>
+                            <a href="#" class="btn btn-success float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add food </a>
+                            <a href="#" class="btn btn-info float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add category </a>
                             <table class="table table-hover table-borderless">
                                 <tbody>
+                                    {% for category in categories %}
                                   <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td class="text-left">{{forloop.counter}}</td>
+                                    <td class="text-left">
+                                        <a href=""><p class="mb-0 font-weight-bold">{{category}}</p>
+                                            <small class="text-muted">{{category.description}}</small>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-edit" aria-hidden="true"></i> &nbsp;
+                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    </td>
                                   </tr>
+                                  {% endfor %}
                                 </tbody>
                               </table>
 									

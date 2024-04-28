@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import  UserProfile
 from accounts.forms import UserProfileForm
+from menu.models import Category
 from .forms import VendorForm
 from .models import Vendor
 from django.contrib import messages
@@ -41,6 +42,11 @@ def vprofile(request):
 
 
 def menu_builder(request):
+    vendor = Vendor.objects.get(user=request.user)
+    categories = Category.objects.filter(vendor=vendor)
+    context = {
+        'categories': categories,
+    }
     if request.method == 'POST':
         pass
-    return render(request, 'vendor/menu_builder.html')
+    return render(request, 'vendor/menu_builder.html', context)
