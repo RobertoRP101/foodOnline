@@ -40,8 +40,7 @@ def registerUser(request):
             # user = form.save(commit=False)
             # user.set_password(password)
             # user.role = User.CUSTOMER
-            # user.save()
-            
+            # user.save()  
             # Create the user using create_user method
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
@@ -68,7 +67,10 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVendor(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already logged in!')
+        return redirect('myAccount')
+    elif request.method == 'POST':
         form = UserForm(request.POST)
         v_form = VendorForm(request.POST, request.FILES)
         if form.is_valid() and v_form.is_valid():
