@@ -73,7 +73,7 @@ $(document).ready(function(){
             url: url,
             success: function(response){
                 console.log(response.cart_counter['cart_count']);
-                if(response.status == 'Failed' ){
+                if(response.status == 'Login_required' ){
                     console.log('Raise the error message');
                 }else {
                     $('#cart_counter').html(response.cart_counter['cart_count'])
